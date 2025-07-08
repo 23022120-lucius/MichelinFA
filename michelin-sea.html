@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>South East Asia Michelin Guide & Star Recommendations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: #f8fafc;
+            background-image:
+                url('data:image/svg+xml;utf8,<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg"><ellipse cx="160" cy="160" rx="120" ry="60" fill="%23ffe5e5" fill-opacity="0.13"/><ellipse cx="80" cy="60" rx="40" ry="20" fill="%23f9c784" fill-opacity="0.10"/><ellipse cx="260" cy="260" rx="30" ry="15" fill="%2336b5b0" fill-opacity="0.10"/><path d=&quot;M160 80a40 40 0 1 0 0.0001 0z&quot; fill=&quot;%23ffd700&quot; fill-opacity=&quot;0.13&quot;/><circle cx=&quot;240&quot; cy=&quot;80&quot; r=&quot;18&quot; fill=&quot;%2336b5b0&quot; fill-opacity=&quot;0.10&quot;/></svg>'),
+                radial-gradient(circle at 80% 10%, #36b5b022 0, #f8fafc 40%),
+                radial-gradient(circle at 20% 90%, #f9c78422 0, #f8fafc 50%),
+                repeating-linear-gradient(135deg, #e3f0f7 0px, #e3f0f7 40px, #f8fafc 40px, #f8fafc 80px);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(120deg, #f5f7fa88 60%, #e3f0f7cc 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        /* Aurora/gradient animated overlay for extra wow */
+        .aurora-bg {
+            position: fixed;
+            left: 0; top: 0; right: 0; bottom: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 80% 90%, #36b5b0 0%, #f9c784 30%, #ffe5e5 60%, #ffd70033 80%, transparent 100%);
+            opacity: 0.14;
+            animation: auroraMove 10s ease-in-out infinite alternate;
+        }
+        @keyframes auroraMove {
+            0% { background-position: 80% 90%;}
+            100% { background-position: 20% 70%;}
+        }
+        header {
+            background: linear-gradient(90deg, #36b5b0 40%, #ffd700 90%);
+            color: #fff;
+            padding: 2.5rem 1rem 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 6px 32px 0 #36b5b044, 0 2px 8px 0 #f9c78433;
+            border-bottom-left-radius: 48px;
+            border-bottom-right-radius: 48px;
+            position: relative;
+            z-index: 2;
+        }
+        .logo {
+            width: 58px;
+            height: 58px;
+            background: linear-gradient(135deg, #fff 70%, #ffe5e5 100%);
+            border-radius: 50%;
+            border: 3px solid #ffd700;
+            color: #36b5b0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 4px 16px rgba(215,38,49,0.10);
+            font-size: 2.1rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            animation: popIn 0.7s cubic-bezier(.68,-0.55,.27,1.55), logoSpin 7s linear infinite;
+            position: relative;
+        }
+        @keyframes logoSpin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+        }
+        .logo::after {
+            content: "";
+            position: absolute;
+            bottom: 7px;
+            right: 7px;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            border-radius: 50%;
+            opacity: 0.7;
+            box-shadow: 0 0 8px 2px #f9c78444;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            80% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.3rem;
+            letter-spacing: 2px;
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(90deg, #36b5b0, #ffd700 70%, #ffe5e5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .heading-accent {
+            width: 60px;
+            height: 5px;
+            background: linear-gradient(90deg, #36b5b0 0%, #ffd700 60%, #ffe5e5 100%);
+            border-radius: 3px;
+            margin: 0.7rem auto 0.5rem auto;
+            animation: accentGrow 1s cubic-bezier(.68,-0.55,.27,1.55);
+            box-shadow: 0 1px 8px #36b5b022;
+        }
+        @keyframes accentGrow {
+            from { width: 0; opacity: 0; }
+            to { width: 60px; opacity: 1; }
+        }
+        header p {
+            margin: 0.7rem 0 0 0;
+            font-size: 1.22rem;
+            color: #fff8f8;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        main {
+            max-width: 540px;
+            margin: 3.5rem auto 2rem auto;
+            background: rgba(255,255,255,0.97);
+            border-radius: 48px;
+            box-shadow: 0 16px 56px 0 #36b5b033, 0 4px 16px 0 #f9c78422;
+            padding: 2.7rem 2.1rem 2.1rem 2.1rem;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(8px) saturate(1.18);
+            border: 2.5px solid #ffd700;
+            overflow: visible;
+            transition: box-shadow 0.2s, transform 0.15s;
+            animation: mainFadeIn 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes mainFadeIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.98);}
+            to { opacity: 1; transform: translateY(0) scale(1);}
+        }
+        main:hover {
+            box-shadow: 0 32px 80px 0 #36b5b044, 0 8px 24px 0 #f9c78433;
+            transform: translateY(-4px) scale(1.018);
+        }
+        /* Animated background accent behind main card */
+        .main-accent-bg {
+            position: absolute;
+            left: 50%;
+            top: 60%;
+            width: 420px;
+            height: 220px;
+            background: radial-gradient(circle at 60% 40%, #ffe5e5cc 0%, #ffd70033 70%, transparent 100%);
+            filter: blur(32px) saturate(1.2);
+            transform: translate(-50%, 0) scale(1.1);
+            z-index: 0;
+            pointer-events: none;
+            animation: accentPulse 4s ease-in-out infinite alternate;
+            opacity: 0.8;
+        }
+        @keyframes accentPulse {
+            0% { opacity: 0.7; transform: translate(-50%, 0) scale(1.05);}
+            100% { opacity: 1; transform: translate(-50%, 0) scale(1.18);}
+        }
+        /* Floating star badge */
+        .star-badge {
+            position: absolute;
+            top: -32px;
+            right: 32px;
+            background: linear-gradient(135deg, #fffbe5 60%, #ffd700 100%);
+            color: #ffd700;
+            border: 3.5px solid #fff;
+            box-shadow: 0 4px 32px #ffd70055, 0 0 0 10px #fffbe511;
+            font-size: 2.1rem;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+            animation: badgePop 1.2s cubic-bezier(.68,-0.55,.27,1.55), starGlow 2s ease-in-out infinite alternate;
+        }
+        @keyframes starGlow {
+            0% { box-shadow: 0 4px 24px #36b5b077, 0 0 0 8px #36b5b011;}
+            100% { box-shadow: 0 4px 32px #f9c78488, 0 0 0 18px #f9c78411;}
+        }
+        @keyframes badgePop {
+            0% { transform: scale(0.7) rotate(-20deg); opacity: 0;}
+            70% { transform: scale(1.15) rotate(10deg); opacity: 1;}
+            100% { transform: scale(1) rotate(0);}
+        }
+        .input-section {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.3rem;
+            align-items: center;
+        }
+        .input-section input[type="text"] {
+            flex: 1;
+            padding: 0.9rem 1.1rem;
+            border-radius: 50px;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            border: 2px solid #ffd700;
+            font-size: 1.2rem;
+            background: rgba(247,250,252,0.99);
+            transition: border 0.2s, box-shadow 0.2s;
+            outline: none;
+            box-shadow: 0 1.5px 6px 0 rgba(215,38,49,0.04);
+        }
+        .input-section input[type="text"]:focus,
+        .input-section button:focus {
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 0 4px #ffd70044, 0 0 12px #36b5b055;
+        }
+        .input-section button {
+            background: linear-gradient(90deg, #36b5b0 70%, #ffd700 100%);
+            border: 2px solid #fff;
+            border-radius: 50px;
+            padding: 0.9rem 2.8rem 0.9rem 2.2rem;
+            font-size: 1.18rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 12px #36b5b022, 0 1px 4px #f9c78422;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            outline: none;
+        }
+        .input-section button::after {
+            content: "🔍";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: sparkle 2.5s infinite linear;
+        }
+        .input-section button:hover, .input-section button:focus {
+            background: linear-gradient(90deg, #ffd700 70%, #36b5b0 100%);
+            transform: translateY(-2px) scale(1.07);
+            box-shadow: 0 6px 24px #36b5b044, 0 2px 8px #f9c78433;
+        }
+        .divider {
+            width: 100%;
+            height: 1.5px;
+            background: linear-gradient(90deg, #e3f0f7 0%, #ffd70022 100%);
+            border-radius: 1px;
+            margin: 1.1rem 0 1.1rem 0;
+            opacity: 0.7;
+        }
+        .response-section {
+            min-height: 90px;
+            background: linear-gradient(120deg, #f7f7fa 80%, #e3f0f7 100%, #f9c78411 120%);
+            border-radius: 22px;
+            padding: 1.3rem 1.1rem;
+            color: #2d2d2d;
+            font-size: 1.13rem;
+            border: 2px solid #ffd700;
+            box-shadow: 0 4px 32px #36b5b022, 0 2px 8px #f9c78422;
+            transition: box-shadow 0.2s;
+            animation: fadeIn 0.7s;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0.7rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        /* Shimmer effect when empty */
+        .response-section:empty::before {
+            content: "Ask for Michelin recommendations above!";
+            color: #bdbdbd;
+            font-style: italic;
+            display: block;
+            width: 100%;
+            height: 1.2em;
+            background: linear-gradient(90deg, #f7f7fa 25%, #e3f0f7 50%, #f7f7fa 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+            border-radius: 8px;
+            margin-bottom: 0.5em;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        /* Tip box as chat bubble */
+        .tip-box {
+            margin-top: 1.7rem;
+            background: linear-gradient(90deg, #fffbe5 80%, #ffd70022 100%);
+            border: 2px solid #ffd700;
+            color: #36b5b0;
+            box-shadow: 0 2px 16px #36b5b022;
+            padding: 1.1rem 1.2rem;
+            font-size: 1.13rem;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            border-radius: 22px 22px 22px 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.7em;
+            animation: fadeIn 1.2s;
+            position: relative;
+        }
+        .tip-box .tip-icon {
+            font-size: 1.3em;
+            margin-right: 0.2em;
+            animation: tipWiggle 2.5s infinite;
+        }
+        @keyframes tipWiggle {
+            0%, 100% { transform: rotate(-10deg);}
+            50% { transform: rotate(10deg);}
+        }
+        .tip-box::after {
+            content: "";
+            position: absolute;
+            left: 18px;
+            bottom: -14px;
+            width: 22px;
+            height: 18px;
+            background: linear-gradient(120deg, #fffbe5 80%, #ffd700 100%);
+            border-radius: 0 0 18px 18px;
+            transform: rotate(-8deg);
+            z-index: 1;
+        }
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            right: 2.2rem;
+            bottom: 2.2rem;
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, #36b5b0 70%, #ffd700 100%);
+            color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 4px 32px #36b5b055, 0 0 0 8px #36b5b011;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            border: none;
+            z-index: 100;
+            transition: background 0.2s, transform 0.15s;
+            outline: none;
+            animation: fabBounce 2.5s infinite cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes fabBounce {
+            0%, 100% { transform: scale(1);}
+            10% { transform: scale(1.08);}
+            20% { transform: scale(0.98);}
+            30% { transform: scale(1.04);}
+            40% { transform: scale(1);}
+        }
+        .fab:hover, .fab:focus {
+            background: linear-gradient(135deg, #ffd700 70%, #36b5b0 100%);
+            transform: scale(1.10) translateY(-3px);
+        }
+        footer {
+            color: #ffd700;
+            font-size: 1.04rem;
+            margin: 2.7rem 0 1.2rem 0;
+            opacity: 0.96;
+        }
+        /* Food emoji background at bottom */
+        .food-bg-emojis {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 140px;
+            pointer-events: none;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            opacity: 0.22;
+            gap: 2vw;
+            font-size: 2.2rem;
+            user-select: none;
+        }
+        .food-bg-emojis span {
+            animation: floatFood 5s ease-in-out infinite;
+            display: inline-block;
+            filter: drop-shadow(0 2px 4px #fffbe5cc);
+            transition: transform 0.25s;
+        }
+        .food-bg-emojis span:hover {
+            transform: scale(1.3) rotate(-10deg);
+            filter: drop-shadow(0 4px 12px #f9c784cc);
+            opacity: 0.5;
+        }
+        .food-bg-emojis span:nth-child(2) { animation-delay: 1s; }
+        .food-bg-emojis span:nth-child(3) { animation-delay: 2s; }
+        .food-bg-emojis span:nth-child(4) { animation-delay: 1.5s; }
+        .food-bg-emojis span:nth-child(5) { animation-delay: 2.5s; }
+        .food-bg-emojis span:nth-child(6) { animation-delay: 0.5s; }
+        .food-bg-emojis span:nth-child(7) { animation-delay: 3s; }
+        .food-bg-emojis span:nth-child(8) { animation-delay: 2.2s; }
+        .food-bg-emojis span:nth-child(9) { animation-delay: 1.2s; }
+        .food-bg-emojis span:nth-child(10) { animation-delay: 3.5s; }
+        @keyframes floatFood {
+            0% { transform: translateY(0) scale(1);}
+            50% { transform: translateY(-18px) scale(1.08);}
+            100% { transform: translateY(0) scale(1);}
+        }
+        /* Responsive: fewer emojis on mobile */
+        @media (max-width: 600px) {
+            main {
+                padding: 1rem;
+            }
+            header {
+                padding: 1.5rem 0.5rem 1rem 0.5rem;
+            }
+            .logo {
+                width: 44px;
+                height: 44px;
+                font-size: 1.3rem;
+            }
+            .heading-accent {
+                width: 36px;
+                height: 4px;
+            }
+            .star-badge {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+                top: -22px;
+                right: 16px;
+            }
+            .fab {
+                right: 1.1rem;
+                bottom: 1.1rem;
+                width: 42px;
+                height: 42px;
+                font-size: 1.3rem;
+            }
+            .food-bg-emojis {
+                height: 80px;
+                font-size: 1.3rem;
+                gap: 1vw;
+            }
+            .food-bg-emojis span:nth-child(n+7) {
+                display: none;
+            }
+            .batik-motif {
+                width: 90px;
+                height: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="aurora-bg"></div>
+    <header>
+        <div class="logo">🍽️</div>
+        <h1>Michelin Guide SEA</h1>
+        <div class="heading-accent"></div>
+        <p>Discover Michelin-starred restaurants & recommendations across South East Asia</p>
+    </header>
+    <main>
+        <div class="main-accent-bg"></div>
+        <div class="batik-motif"></div>
+        <div class="star-badge" title="Michelin Star">★</div>
+        <div class="input-section">
+            <input type="text" placeholder="What Malay Michelin experience are you craving today? 🌙" aria-label="Ask for Michelin recommendations" />
+            <button aria-label="Search Michelin recommendations">Search</button>
+        </div>
+        <div class="divider"></div>
+        <div class="response-section">
+            <!-- LLM response will appear here -->
+        </div>
+        <div class="tip-box">
+            <span class="tip-icon">💡</span>
+            <span>Tip: Try "Best Malay fine dining in Kuala Lumpur" or "Traditional Malay Michelin restaurants in Penang".</span>
+        </div>
+    </main>
+    <div class="food-bg-emojis" aria-hidden="true">
+        <span title="Nasi Lemak">🍚</span>
+        <span title="Satay">🍢</span>
+        <span title="Rendang">🍖</span>
+        <span title="Laksa">🍜</span>
+        <span title="Roti Canai">🥞</span>
+        <span title="Teh Tarik">🍵</span>
+        <span title="Kuih">🧁</span>
+        <span title="Cendol">🍧</span>
+        <span title="Ikan Bakar">🐟</span>
+        <span title="Ayam Goreng">🍗</span>
+        <span title="Sambal">🌶️</span>
+        <span title="Keropok">🍘</span>
+        <span title="Mee Goreng">🍝</span>
+        <span title="Otak-Otak">🍥</span>
+        <span title="Pulut">🍙</span>
+        <span title="Durian">🥭</span>
+        <span title="Ais Kacang">🍨</span>
+        <span title="Lemang">🌾</span>
+        <span title="Serunding">🥓</span>
+        <span title="Pisang Goreng">🍌</span>
+    </div>
+    <footer>
+        &copy; 2024 Michelin Guide SEA &mdash; Inspired by Malay culinary excellence
+        <span style="margin-left:0.5em;">
+            <a href="https://guide.michelin.com/" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline dotted;opacity:0.7;font-size:0.97em;">Official Michelin Guide</a>
+        </span>
+    </footer>
+    <button class="fab" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</body>
+</html>
