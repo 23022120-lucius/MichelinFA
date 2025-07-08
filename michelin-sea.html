@@ -1,3 +1,46 @@
+<script>
+    const input = document.querySelector('.input-section input');
+    const button = document.querySelector('.input-section button');
+    const responseBox = document.querySelector('.response-section');
+
+    async function fetchRecommendation(query) {
+        responseBox.innerHTML = "⏳ Finding the best Malay Michelin match...";
+        try {
+            const response = await fetch("https://luciusdddddddd-flowwise11.hf.space/api/v1/prediction/b6ef7e03-df81-4aa8-ae7e-844e8cd009a5", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ question: query })
+            });
+
+            if (!response.ok) {
+                responseBox.innerHTML = "⚠️ Sorry, there was an issue fetching your recommendation.";
+                return;
+            }
+
+            const data = await response.json();
+            responseBox.innerHTML = data.text || "🤔 No clear recommendation found.";
+        } catch (err) {
+            responseBox.innerHTML = "❌ Error connecting to the Michelin server.";
+            console.error(err);
+        }
+    }
+
+    button.addEventListener('click', () => {
+        const query = input.value.trim();
+        if (query.length > 0) {
+            fetchRecommendation(query);
+        } else {
+            responseBox.innerHTML = "❗Please enter what you're craving (e.g., 'nasi lemak in KL').";
+        }
+    });
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') button.click();
+    });
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
